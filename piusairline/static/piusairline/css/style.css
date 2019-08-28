@@ -1,0 +1,101 @@
+#djangouserform{
+
+}
+#djangouserform ul{
+    color: red;
+    display: block;
+    font-size: 0.7em;
+}
+/* #djangouserform span{
+    color: red;
+    display: block;
+    font-size: 0.7em;
+    width: 1.7em;
+} */
+.helptext{
+    color: red;
+    display: flex;
+    font-size: 0.7em;
+    width: 70%;
+    position: inherit;
+}
+p{
+    font-size: 1.2em;
+    color: #31e;
+    display: block;
+        
+}
+#djangouserform p{
+    display: block;
+    padding: 0.9em;
+    /* margin: 0px auto; */
+}
+#djangouserform label{
+    display: block;
+}
+.homeads{    
+    background-image: linear-gradient(to top right, #000, #ccf);
+    border-radius: 0.6em;
+    color: yellowgreen;
+    background-attachment:initial;
+    padding: 0.5em;
+    margin: 0px auto;
+    text-align: center;
+}
+#pro{
+    background-image: url("../images/had.jpg");
+    background-position: 1.1em;
+}
+#pro1{
+    background-image: url("../images/had1.jpg");
+    background-position: 0.1em;
+    color: #007;
+}
+#pro2{
+    background-image: url("../images/had2.jpg");
+    background-position: 40%;
+    /* background-size: 100%;     */
+}
+.homeads p{
+    color: #fff;
+}
+.homeads h3{
+    color: #fff;    
+}
+.homeads a{
+    color: #fff;
+}
+.piusfooter{
+    background-image: linear-gradient(to top right, #30e, #004);
+    color: #aaf;
+    padding: 1.1em;
+    padding-left: 2em;
+    margin-top: 2em;
+    margin: 0px, auto;
+}
+.piusfooter p{
+font-size: 1.2em;
+color: #fff;
+}
+.piusfooter a{
+    font-size: 1.2em;
+    color: #fff;
+    }
+
+
+.piusfooter a:hover{
+    font-size: 1.2em;
+    background-color: #22c;
+    color: #004;
+    padding: 0.5em;
+    border-radius: 0.3em;
+    }
+
+.piusfooter a:visited{
+    font-size: 1.2em;
+    color: #ccc;
+    }
+.piusfooter a:active{
+    font-size: 1.2em;
+    color: #fff;
+    }

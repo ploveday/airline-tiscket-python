@@ -1,0 +1,26 @@
+{% extends "piusairline/main.html" %}
+{% load static %}
+
+{% block title %}
+  Flights 
+{% endblock title %}
+
+{% block contents %}
+
+<h2>All users Flights</h2>
+{% include "piusairline/usermenu.html" %}
+<p>Current DB Users | Flights</p>
+<div class="row">
+    {% if User.is_authenticated %}
+      {{ User.username }}
+    {% else %}
+        <p >Login or create an account</p>
+    {% endif %}
+    
+    {{ totUsr }}
+    {% for flight in flights  %}
+     <p> {{ flight }}</p>
+    {% endfor %}
+
+</div>
+{% endblock contents %}

@@ -1,0 +1,149 @@
+{% extends "piusairline/main.html" %}
+{% load static %}
+{% load urlify %}
+{% load humanize %}
+
+{% block title %} 
+Tickets
+{% endblock title %}
+
+{% block contents %}
+{% if user.is_authenticated %}
+<h2><i class="fa fa-user-ninja"></i>
+    Pius Airline Tickets
+</h2>
+{% endif %}
+
+<!-- View Selected ticket DETAILS -->
+{% if tdetail %}
+<div class="btn btn-outline-dark">
+<h2 class="alert alert-warning">Viewing Details of {{ tdetail.ticketName }}</h2>
+  <div class="row mb-md-1 pr-md-4">
+      <div class="col-md-4 text-right">Available :</div>
+      <div class="col-md-6 pl-md-1 text-left font-weight-bold text-info">{{ tdetail.quantity }}</div>
+  </div>
+
+  <div class="row mb-md-1 pr-md-4">
+    <div class="col-md-4 text-right">Class:</div>
+    <div class="col-md-6 pl-md-1 text-left font-weight-bold text-info">{{ tdetail.ticketType }}</div>
+</div>
+
+
+<div class="row mb-md-1 pr-md-4">
+    <div class="col-md-4 text-right">Price:</div>
+    <div class="col-md-6 pl-md-1 text-left font-weight-bold text-info"><s>N</s>{{tdetail.amount|intcomma }}</div>
+</div>
+
+
+
+<div class="row mb-md-1 pr-md-4">
+    <div class="col-md-4 text-right">Created:</div>
+    <div class="col-md-6 pl-md-1 text-left font-weight-bold text-info">{{ tdetail.dateCreated|naturaltime }}</div>
+</div>
+
+
+<div class="row mb-md-1 pr-md-4">
+    <div class="col-md-4 text-right">Created By:</div>
+    <div class="col-md-6 pl-md-1 text-left font-weight-bold text-info">{{ tdetail.ticketAuthor|infouser }}</div>
+</div>
+
+<div class="row mb-md-1 pr-md-4">
+      <div class="col-md-4 text-right">Arrival Date :</div>
+      <div class="col-md-6 pl-md-1 text-left font-weight-bold text-info">{{ tdetail.arrivalDate }}</div>
+  </div>
+
+  <div class="row mb-md-1 pr-md-4">
+    <div class="col-md-4 text-right">Departure Date:</div>
+    <div class="col-md-6 pl-md-1 text-left font-weight-bold text-info">{{ tdetail.departureDate|naturaltime }}</div>
+</div>
+
+
+<div class="row mb-md-1 pr-md-4">
+    <div class="col-md-4 text-right">Departing:</div>
+    <div class="col-md-6 pl-md-1 text-left font-weight-bold text-info">{{ tdetail.departureCountry }} - {{ tdetail.departureState }} - {{ tdetail.departureAirport }}</div>
+</div>
+
+
+
+<div class="row mb-md-1 pr-md-4">
+    <div class="col-md-4 text-right">Arriving:</div>
+    <div class="col-md-6 pl-md-1 text-left font-weight-bold text-info">{{ tdetail.destinationCountry }} - {{ tdetail.destinationState }} - {{ tdetail.destinationAirport }}</div>
+</div>
+
+
+<div class="row mb-md-1 pr-md-4">
+    <div class="col-md-4 text-right">Class:</div>
+    <div class="col-md-6 pl-md-1 text-left font-weight-bold text-info">{{ tdetail.ticketType }}</div>
+</div>
+    
+<div class="row mb-md-4 text-center w-100">
+    <div class="col-md-10">
+    <a href="{% url 'alltickets' %}" class="btn btn-primary">Close Ticket Details</a> </div>
+</div>
+</div>
+{% endif %}
+<!-- END View Selected ticket DETAILS -->
+
+{% include "piusairline/usermenu.html" %}
+<div class="row alert alert-info font-weight-bold">
+    <div class="col-md-1">
+    <span class="text-center">#</span>
+    </div>
+    <div class="col-md-2">
+    <span class="text-center">FLIGHT</span>
+    </div>
+    <div class="col-md-2">
+    <span class="text-center">CLASS</span>
+    </div>
+    <div class="col-md-2">
+    <span class="text-center">COST</span>
+    </div>
+    <div class="col-md-2">
+    <span class="text-center">STATUS</span>
+    </div>
+    <div class="col-md-2">
+    <span class="text-center">DATE</span>
+    </div>
+</div>
+<!-- <select id="country" populateCountries(this, 'state')></select>
+
+<select id="state"></select> -->
+{% for ticket in tickets %}
+    {% if forloop.counter|divisibleby:'2' %}
+        <div class="row alert-secondary">
+    {% else %}
+        <div class="row">
+    {% endif %}
+    <div class="col-md-1">
+        <span class="text-center">{{ forloop.counter }}</span>
+    </div>    
+    <div class="col-md-2"> 
+        <a href="{% url 'alltickets_w' pk=ticket.id %}" class="text-center">{{ ticket.ticketName }}</a>
+        </div>
+        <div class="col-md-2">
+        <span class="text-center">{{ ticket.ticketType }}</span>
+        </div>
+        <div class="col-md-2">
+        <span class="text-right"><s>N</s>{{ ticket.amount|intcomma }}</span>
+        </div>
+        <div class="col-md-2">
+        <span class="text-center">{{ ticket.quantity }} {{ ticket.status|msgTicketstatus }}</span>
+        </div>
+        <div class="col-md-3">
+        <span class="text-sm-left">Depart: {{ ticket.departureDate|date:'d F Y' }}<br>Arrive: {{ ticket.arrivalDate|date:'d F Y' }}</span>
+        </div>
+    </div>
+{% endfor %}
+
+
+<hr/>
+<div class="row">
+    <div col-md-5>
+
+    <p>All your itenery with Pius Airline are displayed here.
+        <br> 
+        Should you have need for further enquiry, feel free to contact our dedicated 24-7 support team
+    </p>
+</div>
+</div>
+{% endblock contents %}

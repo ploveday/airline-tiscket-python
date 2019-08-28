@@ -1,0 +1,37 @@
+{% extends "piusairline/main.html" %}
+{% load static %}
+
+{% block title %}
+  Create Account
+{% endblock title %}
+
+{% block contents %}
+
+{% for data in datas %}
+  {{ data }}
+{% endfor %}
+<!-- Display form validation errors to users -->
+{% if err != null %}
+  <div class="alert alert-danger">{{ err }} </div>
+{% endif %}
+<form class="needs-validation" method="POST" action="">
+    {% csrf_token %}
+    <h2>Create An Account with us | Pius Airline</h2>
+    <p>Our Registered customers gets access to seasonal promotional resourcess <br><b>Register now by creating a new user account</b></p>
+    <p class="text-dark">Its fantastically easy , simply and takes less than two minutes to complet</p>
+    <div class="row" id="djangouserform">
+            {{ form.as_p }}
+            {{ dform.as_p }}
+        </div>
+    <div class="row">
+    <div class="col-md-4">
+        Country: <select required class="custom-select d-block w-100" id="country" name="country"></select>
+    </div>
+    <div class="col-md-4">
+    State: <select required class="custom-select d-block w-100" name="state" id="state"></select>
+    </div>   
+</div><p>&nbsp;</p>
+<button class="btn btn-info">Create Account</button>
+
+</form>
+{% endblock contents %}

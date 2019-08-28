@@ -1,0 +1,156 @@
+{% extends "piusairline/main.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+  Flight Booking 
+{% endblock title %}
+
+{% block contents %}
+<div id="djangouserform">
+    <!-- Saving booking  -->
+{% if bookstu == 0 %}
+<div class="alert alert-danger">OOPS! {{ bookmsg }}</div>
+{% elif bookstu == 1 %}
+<div class="alert alert-success">Thank You for your patronage. <br> Your Booking has been confirmed</div>
+{% endif %} 
+
+{% if bookinf %}
+
+<h2 class="alert alert-warning text-center">Your Itenery</h2>
+{% for tf in ticketinf %}
+
+<div class="row mb-md-1 pr-md-4">
+<div class="col-md-4 text-right">Departing :</div>
+<div class="col-md-6 pl-md-1 text-left font-weight-bold text-info text-capitalize">{{ tf.departureCountry }} - {{ tf.departureState }} - {{ tf.departureAirport }}</div>
+</div>
+
+
+<div class="row mb-md-1 pr-md-4">
+<div class="col-md-4 text-right">Arriving :</div>
+<div class="col-md-6 pl-md-1 text-left font-weight-bold text-info text-capitalize">{{ tf.destinationCountry }} - {{ tf.destinationState }} - {{ tf.destinationAirport }}</div>
+</div>
+
+
+<div class="row mb-md-1 pr-md-4">
+<div class="col-md-4 text-right">Departure Date :</div>
+<div class="col-md-6 pl-md-1 text-left font-weight-bold text-info text-capitalize">{{ tf.departureDate }}</div>
+</div>
+
+
+<div class="row mb-md-1 pr-md-4">
+<div class="col-md-4 text-right">Arrival Date :</div>
+<div class="col-md-6 pl-md-1 text-left font-weight-bold text-info text-capitalize">{{ tf.arrivalDate }}</div>
+</div>
+
+
+<div class="row mb-md-1 pr-md-4">
+<div class="col-md-4 text-right">Status :</div>
+<div class="col-md-6 pl-md-1 text-left font-weight-bold text-info text-capitalize">Awaiting Payment</div>
+</div>
+                
+                                                                                
+<div class="row mb-md-1 pr-md-4">
+<div class="col-md-4 text-right">Departure Airport :</div>
+<div class="col-md-6 pl-md-1 text-left font-weight-bold text-info text-capitalize">{{ tf.departureAirport }} - {{ tf.departureState }}</div>
+</div>
+
+<div class="row mb-md-1 pr-md-4">
+<div class="col-md-4 text-right">Price:</div>
+<div class="col-md-6 pl-md-1 text-left font-weight-bold text-info text-capitalize"><s>N</s>{{ tf.amount|intcomma }} </div>
+</div>
+
+<div class="row mb-md-1 pr-md-4">
+<div class="col-md-4 text-right">Ticket Class :</div>
+<div class="col-md-6 pl-md-1 text-left font-weight-bold text-info text-capitalize">{{ tf.ticketType }}</div>
+</div>
+
+
+{% endfor %}
+
+
+<div class="row mb-md-1 pr-md-4">
+        <div class="col-md-4 text-right">Method of Payment :</div>
+        <div class="col-md-6 pl-md-1 text-left font-weight-bold text-info text-capitalize">{{ bookinf.paymentType }}</div>
+    </div>
+
+<div class="row">
+    <div class="col-md-5"><a href="{% url 'bookflight' %}" class="btn btn-warning">Change Itenery</a></div>
+    <div class="col-md-5">
+        <form class="needs-validation" method="POST" action="bookng">
+        {% csrf_token %}
+        <input type="hidden" value="{{ bookinf.buyerID }}" name="buyerID">
+        <input type="hidden" value="{{ bookinf.ticketID }}" name="ticketID">
+        <input type="hidden" value="{{ bookinf.paymentType }}" name="paymentType">
+        <button href="" class="btn btn-success">Make Payment</button>
+        </form>
+    </div>
+</div>
+{% else %}
+
+<form class="needs-validation" method="POST" action="">
+        {% csrf_token %}
+        <h2>Book a Flight with us |Pius Airline</h2>  
+        {% include "piusairline/usermenu.html" %}
+        
+        <div class="row mb-md-4">
+            <div class="col-md-3">
+                <a href="#" class="alert alert-secondary">One-Way Ticket</a>
+            </div>
+    
+            <div class="col-md-3">
+                    <a href="#" class="alert alert-info">Return Ticket</a>
+                </div>
+        </div>
+    <!-- Flight booking form fields here -->
+    <div class="row mb-md-4">
+            <div class="col-md-4">
+                    <label class="text-dark">Departing From:</label>
+                    <select required class="custom-select d-block w-100" id="deCountry" name="deCountry">
+                        <option value="">--Select--</option>
+                    {% for ticket in tickets %}
+                    <option value="{{ ticket.id }}">{{ ticket.departureAirport }} - {{ ticket.departureCountry }} - {{ ticket.departureState }}</option>  
+                    {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                        <label class="text-dark">Proposed Destination</label>
+                        <select required class="custom-select d-block w-100" id="arCountry" name="arCountry">
+                                <option value="">--Select--</option>
+                                {% for ticket in tickets %}
+                                <option value="{{ ticket.id }}">{{ ticket.destinationState }} - {{ ticket.destinationAirport }} - {{ ticket.destinationState }}</option>  
+                            {% endfor %}
+                        </select>
+                </div>
+    </div>
+    
+    <div class="row">
+            <div class="col-md-4 mb-md-4">
+                <label class="text-dark">Intended Date of Departure</label>
+                <select required class="custom-select d-block w-100" id="deDate" name="deDate">
+                <option value="">--Select--</option>
+                {% for ticket in tickets %}
+                <option value="{{ ticket.id }}">{{ ticket.departureDate|date:'D, jS F, Y  H:i' }}</option>  
+                {% endfor %}
+                </select>
+            </div>
+    
+            <div class="col-md-4 mb-md-4">
+                <label class="text-dark">Method of Payment</label>
+                <select required class="custom-select d-block w-100" id="mpayment" name="mpayment">
+                <option value="">--Select--</option>
+                <option value="card">Debit Card</option>  
+                <option value="cheque">Cheque</option>  
+                <option value="transfer">Bank Tranfer</option>  
+                <option value="deposit">Bank Deposit</option>  
+                <option value="cash">Cash</option>  
+                </select>
+            </div>
+    </div>
+        
+    <button class="btn btn-info">Book Flight</button>
+    
+    </form>
+{% endif %}
+</div>
+{% endblock contents %}

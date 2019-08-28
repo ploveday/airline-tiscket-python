@@ -1,0 +1,99 @@
+{% extends "piusairline/main.html" %}
+{% load static %}
+
+{% block title %}
+{% if user.is_authenticated %}
+  {{ user.first_name }} |
+{% endif %}  
+Account info 
+{% endblock title %}
+
+{% block contents %}
+{% if user.is_authenticated %}
+<h2><i class="fas fa-user-ninja    "></i>Account Information of {{ user.first_name}} {{ user.last_name }}</h2>
+{% endif %}
+
+{% include "piusairline/usermenu.html" %}
+<div class="row">
+    <div class="col-md-3">
+    <p class="text-right text-info">Full Names:</p>
+    </div>
+    <div class="col-md-3">
+    <p class="text-left text-info">{{ user.first_name }} {{ user.last_name }}</p>
+    </div>
+</div>
+
+<div class="row">
+        <div class="col-md-3">
+        <p class="text-right text-info">Email:</p>
+        </div>
+        <div class="col-md-3">
+        <p class="text-left text-info">{{ user.email }}</p>
+        </div>
+</div>
+
+<div class="row">
+        <div class="col-md-3">
+            <p class="text-right text-info">User Name:</p>
+        </div>
+        <div class="col-md-3">
+            <p class="text-left text-info">{{ user.username }}</p>
+        </div>
+    </div>
+    
+    <div class="row">
+            <div class="col-md-3">
+            <p class="text-right text-info">Country:</p>
+            </div>
+            <div class="col-md-3">
+            <p class="text-left text-info">{{ myinfo.country }}</p>
+            </div>
+    </div>
+
+    <div class="row">
+            <div class="col-md-3">
+            <p class="text-right text-info">State:</p>
+            </div>
+            <div class="col-md-3">
+            <p class="text-left text-info">{{ myinfo.state }}</p>
+            </div>
+        </div>
+        
+        <div class="row">
+                <div class="col-md-3">
+                <p class="text-right text-info">Date:</p>
+                </div>
+                <div class="col-md-4">
+                <p class="text-left text-info">{{ user.date_joined }}</p>
+                </div>
+        </div>
+
+        <div class="row">
+                <div class="col-md-3">
+                <p class="text-right text-info">Satus:</p>
+                </div>
+                <div class="col-md-3">
+                <p class="text-left text-info">Active:</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                    <div class="col-md-3">
+                    <p class="text-right text-info">password:</p>
+                    </div>
+                    <div class="col-md-3">
+                    <p class="text-left text-info"><a href="{% url 'password_change' %}">Change Password</a></p>
+                    </div>
+            </div>
+
+<hr/>
+<div class="row">
+    <div col-md-5>
+
+    <p>All your itenery with Pius Airline are displayed here.
+        <br> 
+        Should you have need for further enquiry, feel free to contact our dedicated 24-7 support team
+    </p>
+</div>
+</div>
+{% endblock contents %}

@@ -1,0 +1,54 @@
+{% extends "piusairline/main.html" %}
+{% load static %}
+
+{% block title %}
+  Create Tickets
+{% endblock title %}
+
+{% block contents %}
+<!-- <h1> Error {{ emsg }}</h1> -->
+{% if msg == 2 %}
+  <div class="alert alert-success">New Ticket was saved successfully</div>
+  {% elif msg == 3 %}
+  <div class="alert alert-danger">Error Occured {{ emsg }}</div>
+{% endif %}
+<form class="needs-validation" method="POST" action="">
+{% csrf_token %}
+<h2>Create Tickets</h2>
+{% include "piusairline/usermenu.html" %}
+<div class="row" id="djangouserform">
+    {{ form.as_p }}
+
+<div class="row">
+<div class="col-md-4 alert alert-info mr-2 p-4">
+<div class="text-secondary font-weight-bold">Departure</div>
+    <label> Country</label>
+    <select name="departureCountry" class="custom-select d-block w-100" id="id_departureCountry"></select>
+
+    <label class="text-body">Departure State</label>
+    <select name="departureState" class="custom-select d-block w-100" id="id_departureState"></select>
+    <label>Aiport </label>
+    <input type="text" name="departureAirport" class="form-control">
+</div>
+
+<div class="col-md-4 alert alert-secondary mr-2 p-4">
+<div class="text-secondary font-weight-bold">Arrival</div>
+    <label> Country</label>    
+    <select name="destinationCountry" class="custom-select d-block w-100" id="id_destinationCountry"></select>
+
+    <label>Arrival State</label>
+    <select name="destinationState" class="custom-select d-block w-100" id="id_destinationState"></select>
+
+    <label>Aiport </label>
+    <input type="text" name="destinationAirport" class="form-control">
+</div> 
+</div> 
+</div>
+    <button class="btn btn-info">Create New Ticket</button>
+
+</form>
+<script language="javascript">
+    populateCountries("id_destinationCountry", "id_destinationState");    
+    populateCountries("id_departureCountry", "id_departureState");    
+</script>
+{% endblock contents %}

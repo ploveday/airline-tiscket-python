@@ -1,0 +1,39 @@
+{% extends "piusairline/main.html" %}
+{% load static %}
+
+{% block title %}
+  Home 
+{% endblock title %}
+
+{% block contents %}
+<h2>Pius Airline</h2>
+{% if none %}
+  <div class="alert alert-danger">{{ none }}</div>
+{% endif %}
+<div class="row">
+    
+<p>Pius Airline has the best routs and price at your comfort</p>
+<p>You can travel the wolrd with us. We offer the best deal and passenger comfort</p>
+<div class="col-md-3 homeads" id="pro">
+  <h3>Promo</h3>  
+  <p>Pius Airline Special Offer</p>
+  Book flight to any destination this festive seacon
+</div>
+
+<div class="col-md-3 homeads" id="pro1">
+    <h3>Routes</h3>  
+    <p>The Airline of Choice in standards and safty</p>
+    Tour the wolrd for business and please
+</div>
+
+<div class="col-md-3 homeads" id="pro2">
+    <h3>Baggage</h3>  
+    <p>Max allowed cariage</p>
+    Our Business class category has unlimited baggage allowance
+</div>
+
+<p>We are a world class Airline Company with no match when it comes to international standards
+    and passengers safty.
+</p>
+</div>
+{% endblock contents %}
